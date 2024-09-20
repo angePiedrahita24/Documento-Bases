@@ -19,6 +19,7 @@ Link modelo:
 
 # Creación tablas
 - La tabla edificio es la encargada de la información básica de los edificios, id es la llave primaria generada automaticamente por identity para crear un identificador que no se repita y el nombre corresponde al nombre del edificio el cual no puede ser nulo y es un valor único para que no hayan confusiones con edificios con el mismo nombre.
+
 ![image](https://github.com/user-attachments/assets/feb441dc-8d57-45a8-84b5-542cc2bfc576)
 
 - La tabla piso relaciona la jerarquia entre los pisos y los edificios mediante una llave foranea, el id es la llave primaria generada automaticamente por identity para crear un identificador que no se repita, numeropiso representa el número del piso el cual no puede ser nulo, idEdificio es una llave foránea de la tabla edificio que no puede ser nula y lo que hace el unique se encarga de que no existan dos pisos con el mismo número de edificio.
