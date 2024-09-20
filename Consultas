@@ -1,0 +1,167 @@
+-- Crear la vista V_CONSULTA_1
+-- Esta vista muestra un listado detallado de colaboradores, cafeter�as y sus metas, 
+-- incluyendo la diferencia porcentual entre la meta y el valor real.
+CREATE OR REPLACE VIEW V_CONSULTA_1 AS
+SELECT 
+    c.nombre AS nombre_cafeteria,
+    e.nombre AS nombre_edificio,
+    p.numeropiso,
+    col.nombre AS nombre_colaborador,
+    col.tipodocumento,
+    col.numerodocumento,
+    m.fechameta,
+    m.valor_meta,
+    m.valor_real,
+    ((m.valor_real - m.valor_meta) / m.valor_meta) * 100 AS diferencia_porcentual
+FROM 
+    Meta m
+JOIN 
+    Colaborador col ON m.idColaborador = col.id
+JOIN 
+    Cafeteria c ON m.idCafeteria = c.id
+JOIN 
+    Piso p ON c.idPiso = p.id
+JOIN 
+    Edificio e ON p.idEdificio = e.id
+ORDER BY 
+    m.fechameta,
+    c.nombre,
+    col.nombre;
+
+-- Crear la vista V_CONSULTA_2
+-- Esta vista calcula las ventas totales de cada cafeter�a, 
+-- incluyendo las cafeter�as que no tienen ventas.
+CREATE OR REPLACE VIEW V_CONSULTA_2 AS
+SELECT 
+    c.nombre AS nombre_cafeteria,
+    NVL(SUM(m.valor_real), 0) AS total_ventas
+FROM 
+    Cafeteria c
+LEFT JOIN 
+    Meta m ON c.id = m.idCafeteria
+GROUP BY 
+    c.nombre
+ORDER BY 
+    c.nombre;
+
+-- Crear la vista V_CONSULTA_3
+-- Esta vista calcula el valor a pagar a cada colaborador por mes y a�o, 
+-- basado en sus ventas y su comisi�n. Incluye un total general al final.
+CREATE OR REPLACE VIEW V_CONSULTA_3 AS
+SELECT 
+    col.nombre AS nombre_colaborador,
+    TO_CHAR(m.fechameta, 'YYYY-MM') AS mes_anio,
+    SUM(m.valor_real * col.comision / 100) AS valor_a_pagar
+FROM 
+    Meta m
+JOIN 
+    Colaborador col ON m.idColaborador = col.id
+GROUP BY 
+    col.nombre, 
+    TO_CHAR(m.fechameta, 'YYYY-MM')
+UNION ALL
+SELECT 
+    'TOTAL GENERAL' AS nombre_colaborador,
+    NULL AS mes_anio,
+    SUM(m.valor_real * col.comision / 100) AS valor_a_pagar
+FROM 
+    Meta m
+JOIN 
+    Colaborador col ON m.idColaborador = col.id;
+
+-- Crear la vista V_CONSULTA_4
+-- Esta vista muestra el total de metas y ventas reales por cada a�o y mes,
+-- junto con la diferencia entre ambas.
+CREATE OR REPLACE VIEW V_CONSULTA_4 AS
+SELECT 
+    EXTRACT(YEAR FROM m.fechameta) AS anio,
+    EXTRACT(MONTH FROM m.fechameta) AS mes,
+    SUM(m.valor_meta) AS total_metas,
+    SUM(m.valor_real) AS total_valores_reales,
+    SUM(m.valor_real - m.valor_meta) AS diferencia_total
+FROM 
+    Meta m
+GROUP BY 
+    EXTRACT(YEAR FROM m.fechameta), 
+    EXTRACT(MONTH FROM m.fechameta)
+ORDER BY 
+    anio, mes;
+
+-- Crear la vista V_CONSULTA_5
+-- Esta vista calcula el porcentaje de participaci�n de cada colaborador 
+-- en relaci�n con el total de ventas.
+CREATE OR REPLACE VIEW V_CONSULTA_5 AS
+SELECT 
+    col.nombre AS nombre_colaborador,
+    SUM(m.valor_real) AS total_ventas_reales,
+    (SUM(m.valor_real) / (SELECT SUM(valor_meta) FROM Meta)) * 100 AS porcentaje_participacion
+FROM 
+    Meta m
+JOIN 
+    Colaborador col ON m.idColaborador = col.id
+GROUP BY 
+    col.nombre
+ORDER BY 
+    porcentaje_participacion DESC;
+
+-- Crear la vista V_CONSULTA_6
+-- Esta vista identifica a los colaboradores que tienen metas asignadas en todas las cafeter�as.
+CREATE OR REPLACE VIEW V_CONSULTA_6 AS
+SELECT 
+    col.nombre AS nombre_colaborador
+FROM 
+    Colaborador col
+WHERE 
+    NOT EXISTS (
+        SELECT c.id 
+        FROM Cafeteria c 
+        WHERE NOT EXISTS (
+            SELECT m.idCafeteria 
+            FROM Meta m 
+            WHERE m.idCafeteria = c.id AND m.idColaborador = col.id
+        )
+    );
+
+
+-- Crear la vista V_CONSULTA_7
+-- Esta vista muestra el n�mero total de colaboradores que son de planta y temporales por edificio,
+-- incluyendo un total general al final.
+CREATE OR REPLACE VIEW V_CONSULTA_7 AS
+SELECT 
+    e.nombre AS edificio,
+    SUM(CASE WHEN col.vinculacion = 'PLANTA' THEN 1 ELSE 0 END) AS total_planta,
+    SUM(CASE WHEN col.vinculacion = 'TEMPORAL' THEN 1 ELSE 0 END) AS total_temporal,
+    COUNT(col.id) AS total
+FROM 
+    Colaborador col
+JOIN 
+    Meta m ON col.id = m.idColaborador
+JOIN 
+    Cafeteria c ON m.idCafeteria = c.id
+JOIN 
+    Piso p ON c.idPiso = p.id
+JOIN 
+    Edificio e ON p.idEdificio = e.id
+GROUP BY 
+    e.nombre
+UNION ALL
+-- Totales generales
+SELECT 
+    'Totales' AS edificio,
+    SUM(CASE WHEN col.vinculacion = 'PLANTA' THEN 1 ELSE 0 END) AS total_planta,
+    SUM(CASE WHEN col.vinculacion = 'TEMPORAL' THEN 1 ELSE 0 END) AS total_temporal,
+    COUNT(col.id) AS total
+FROM 
+    Colaborador col
+JOIN 
+    Meta m ON col.id = m.idColaborador
+JOIN 
+    Cafeteria c ON m.idCafeteria = c.id
+JOIN 
+    Piso p ON c.idPiso = p.id
+JOIN 
+    Edificio e ON p.idEdificio = e.id;
+
+
+
+
