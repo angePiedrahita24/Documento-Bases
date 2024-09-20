@@ -109,7 +109,7 @@ INSERT INTO Cafeteria (id, nombre, idPiso) VALUES (9, 'Cafeter�a Jard�n', 11
 INSERT INTO Cafeteria (id, nombre, idPiso) VALUES (10, 'Cafeter�a K', 12); -- Edificio Jos� Gabriel Maldonado S.J., Piso 1
 INSERT INTO Cafeteria (id, nombre, idPiso) VALUES (11, 'Cafeter�a O', 13); -- Edificio F�lix Restrepo S.J., Piso 1
 
-Inserción datos colaborador: Se insertan los datos de los colaboradores, cada uno con su documento �nico.
+Inserción datos colaborador: Se insertan los datos de los colaboradores, cada uno con su documento único.
 INSERT INTO Colaborador (id, nombre, tipodocumento, numerodocumento, vinculacion, comision) 
 VALUES (1, 'Laura Hern�ndez', 'CC', 1234567890, 'PLANTA', 10); -- Cafeter�a Central
 INSERT INTO Colaborador (id, nombre, tipodocumento, numerodocumento, vinculacion, comision) 
@@ -152,5 +152,23 @@ INSERT INTO Meta (id, idColaborador, idCafeteria, fechameta, valor_meta, valor_r
 VALUES (8, 8, 4, TO_DATE('2024-08-26', 'YYYY-MM-DD'), 480000, 475000); -- Meta para Sof�a Torres en Cafeter�a Occidente
 
 # Consultas solicitadas
+- Proporciona un listado detallado de colaboradores, cafeterías, metas y el porcentaje de diferencia entre el valor real y la meta establecida. Esta vista es fundamental para el análisis de rendimiento de los colaboradores en cada cafetería y su impacto frente a las metas asignadas:
 ![image](https://github.com/user-attachments/assets/2c8ee2d4-c8d5-415e-a947-a0a1a04b3366)
 
+- Muestra el total de ventas por cafetería, incluyendo las que no tienen ventas:
+![image](https://github.com/user-attachments/assets/8a0c28c3-27b3-43f6-a441-643469369fd2)
+
+- Determina cuánto debe pagarse a cada colaborador mensualmente según las ventas y su comisión , permitiendo ver el pago mensual por colaborador y el total general de pagos a realizar:
+![image](https://github.com/user-attachments/assets/096bad2f-4b2d-460b-bd87-af485c25f3b2)
+
+- Calcula los totales de metas y ventas reales por mes y año, incluyendo la diferencia entre ambas y  observa la evolución de las metas frente a las ventas reales y evaluar si se cumplieron los objetivos a lo largo del tiempo:
+![image](https://github.com/user-attachments/assets/63773527-33dd-4ba5-a2e4-f54c517fb803)
+
+- Muestra el porcentaje de participación de cada colaborador en relación al total de ventas de todas las cafeterías:
+![image](https://github.com/user-attachments/assets/85101aa3-a90e-490f-bfac-d58b4f6260b3)
+
+- Identifica a los colaboradores que tienen metas asignadas en todas las cafeterías:
+![image](https://github.com/user-attachments/assets/412a7c85-2476-460b-ac7d-af934d4d18fd)
+
+- Muestra la cantidad de colaboradores de planta y temporales por edificio, junto con un total general:
+![image](https://github.com/user-attachments/assets/14e02d71-67eb-4774-98b2-356f6e0d665d)
