@@ -22,9 +22,11 @@ Link modelo:
 ![image](https://github.com/user-attachments/assets/feb441dc-8d57-45a8-84b5-542cc2bfc576)
 
 - La tabla piso relaciona la jerarquia entre los pisos y los edificios mediante una llave foranea, el id es la llave primaria generada automaticamente por identity para crear un identificador que no se repita, numeropiso representa el número del piso el cual no puede ser nulo, idEdificio es una llave foránea de la tabla edificio que no puede ser nula y lo que hace el unique se encarga de que no existan dos pisos con el mismo número de edificio.
+
 ![image](https://github.com/user-attachments/assets/89dea13a-9422-4a35-9310-ba2b624c83ba)
 
 - La tabla cafeteria guarda la información de las cafeterías y la ubicación de los pisos, el id es la llave primaria generada automaticamente por identity para crear un identificador que no se repita, el nombre corresponde al de la cafetería el cual no puede ser nullo y tiene que ser único y el idPiso es una llave foránea de la tabla piso. El on delete cascade sirve para eliminar las cafeterías en caso de que se elimine el piso asociado.
+
 ![image](https://github.com/user-attachments/assets/c38a5c31-70a9-4307-bdef-f023d78ea765)
 
 - La tabla colaborador guarda los datos de los colaboradores, el  id es la llave primaria generada automaticamente por identity para crear un identificador que no se repita, el tipodocumento y el numerodocumento deben tener un valor único, vinculacion permite y guarda los valores PLANTA o TEMPORAL y comision tiene un valor por defecto del 10% en un rango de 0 a 100.
@@ -57,6 +59,7 @@ Inserción datos meta: Se insertan las metas para cada colaborador en su respect
 ![image](https://github.com/user-attachments/assets/8a0c28c3-27b3-43f6-a441-643469369fd2)
 
 - Determina cuánto debe pagarse a cada colaborador mensualmente según las ventas y su comisión , permitiendo ver el pago mensual por colaborador y el total general de pagos a realizar:
+
 ![image](https://github.com/user-attachments/assets/096bad2f-4b2d-460b-bd87-af485c25f3b2)
 
 - Calcula los totales de metas y ventas reales por mes y año, incluyendo la diferencia entre ambas y  observa la evolución de las metas frente a las ventas reales y evaluar si se cumplieron los objetivos a lo largo del tiempo:
