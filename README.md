@@ -152,4 +152,5 @@ INSERT INTO Meta (id, idColaborador, idCafeteria, fechameta, valor_meta, valor_r
 VALUES (8, 8, 4, TO_DATE('2024-08-26', 'YYYY-MM-DD'), 480000, 475000); -- Meta para Sof�a Torres en Cafeter�a Occidente
 
 # Consultas solicitadas
+![image](https://github.com/user-attachments/assets/2c8ee2d4-c8d5-415e-a947-a0a1a04b3366)
 
