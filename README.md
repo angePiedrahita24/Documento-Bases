@@ -78,5 +78,3 @@ Inserción datos meta: Se insertan las metas para cada colaborador en su respect
 - Muestra la cantidad de colaboradores de planta y temporales por edificio, junto con un total general:
 ![image](https://github.com/user-attachments/assets/14e02d71-67eb-4774-98b2-356f6e0d665d)
 
-# Tabla de Datos 
-
