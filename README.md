@@ -15,7 +15,10 @@ Link modelo:
 - Cafetería: id(PK), nombre, idPiso(FK)
 - Colaborador: id(PK), tipodocumento, numerodocumento, nombre, vinculacion
 - Meta: id(PK), idColaborador(FK), idCafeteria(FK), fechameta, valor_meta, valor_real
-Link modelo:
+
+![image](https://github.com/user-attachments/assets/436467b4-92c3-4cb5-9bf8-00969c5d476e)
+
+Link modelo: https://www.canva.com/design/DAGRWBZ9kiM/x-SlymXVB0Tk80zeA-vudQ/edit?utm_content=DAGRWBZ9kiM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton 
 
 # Creación tablas
 - La tabla edificio es la encargada de la información básica de los edificios, id es la llave primaria generada automaticamente por identity para crear un identificador que no se repita y el nombre corresponde al nombre del edificio el cual no puede ser nulo y es un valor único para que no hayan confusiones con edificios con el mismo nombre.
@@ -74,3 +77,6 @@ Inserción datos meta: Se insertan las metas para cada colaborador en su respect
 
 - Muestra la cantidad de colaboradores de planta y temporales por edificio, junto con un total general:
 ![image](https://github.com/user-attachments/assets/14e02d71-67eb-4774-98b2-356f6e0d665d)
+
+# Tabla de Datos 
+
